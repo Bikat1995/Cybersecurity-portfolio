@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikat Tilahun | Offensive Security Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --surface-color: #161b22;
+            --border-color: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-color: #2ea043; /* Matrix/Cyber Green */
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 0 6rem;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: ">>";
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            margin-right: 12px;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            padding-top: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(46, 160, 67, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        /* Terminal Style Box */
+        .terminal-box {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            margin-top: 2.5rem;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .prompt {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        /* Grid Elements */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 20px rgba(46, 160, 67, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        
+        .card ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+        
+        .card ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: rgba(46, 160, 67, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        
+        .skill-tag:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        /* Container Inner (sub-section within container, no full section padding) */
+        .container-inner {
+            padding: 5rem 0 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Image Layouts */
+        .section-layout {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        .section-layout.reverse {
+            flex-direction: row-reverse;
+        }
+        .section-text {
+            flex: 1;
+        }
+        .section-image {
+            flex: 1;
+        }
+        .section-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .section-image img:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-container { padding: 0 3rem; }
+            .container { padding: 0 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .nav-links { display: none; }
+            .nav-container { padding: 0 1.5rem; }
+            .container { padding: 0 1.5rem; }
+            section { padding: 5rem 0 3rem; }
+            #hero { flex-direction: column; text-align: center; justify-content: center; gap: 2rem; padding-top: 6rem; }
+            .hero-image { width: 100%; max-width: 400px; margin: 0 auto; }
+            .section-layout, .section-layout.reverse { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Bikat<span>.</span>Tilahun</a>
+            <div class="nav-links">
+                <a href="#about">01. About</a>
+                <a href="#methodology">02. Methodology</a>
+                <a href="#toolkit">03. Arsenal</a>
+                <a href="#skills">04. Skills</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- About / Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <span class="subtitle">Offensive Security & Red Teaming</span>
+                <h1>Bikat Tilahun.</h1>
+                <p>I systematically strengthen network and application defenses by emulating real-world adversarial tactics. I believe that the most effective way to build resilient systems is to understand exactly how they can be dismantled.</p>
+                
+                <div class="terminal-box">
+                    <div class="terminal-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div><span class="prompt">root@kali:~#</span> ./whoami</div>
+                    <div style="margin-top: 10px; color: var(--text-primary);">
+                        Bridging the gap between theoretical security and practical defense.<br>
+                        Status: Identifying vulnerabilities before malicious actors do.
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="photo_2026-03-14_08-12-11.jpg" alt="Bikat Tilahun">
+            </div>
+        </section>
+
+        <!-- The Spark (part of About) -->
+        <div class="container-inner" id="about">
+            <h2>The Spark</h2>
+            <div class="section-layout">
+                <div class="section-text">
+                    <p>My passion for technology wasn't born out of abundance, but rather a lack of access. Growing up, I didn't have my own hardware; instead, I spent hours watching friends play games, captivated by the digital world but unable to directly interact with it.</p>
+                    <p>That initial curiosity turned into an absolute obsession after watching <em>Mr. Robot</em>. It wasn't just the hacking that hooked me—it was the profound realization of how deeply interconnected and vulnerable our digital infrastructure is.</p>
+                    <p>That shift from a fascinated observer to an active, hands-on learner defined my path. I went from watching screens over shoulders to diving deep into the technical intricacies of how systems operate—and how they break.</p>
+                </div>
+                <div class="section-image">
+                    <img src="img.png" alt="The Spark">
+                </div>
+            </div>
+        </div>
+
+        <!-- Methodology -->
+        <section id="methodology">
+            <h2>Process & Methodology</h2>
+            <p>I believe in a transparent, methodical approach to offensive security. In my active projects and write-ups, I document exact attack paths, detailing the logic behind each pivot.</p>
+            
+            <div class="grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>01. Recon & Strategy</h3>
+                    <p>Mapping the attack surface meticulously. Identifying logical entry points, enumerating subdomains, and understanding the target's unique infrastructure.</p>
+                </div>
+                <div class="card">
+                    <h3>02. Execution</h3>
+                    <p>Executing targeted exploits. Sharing visual, step-by-step documentation of bypasses, privilege escalation, and lateral movement with screenshots.</p>
+                </div>
+                <div class="card">
+                    <h3>03. Mitigation</h3>
+                    <p>Translating offensive wins into defensive strategies. I don't just show how I broke in; I share practical, actionable tips on patching the vulnerability.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toolkit & Arsenal -->
+        <section id="toolkit">
+            <h2>Arsenal & Tooling</h2>
+            <div class="section-layout reverse">
+                <div class="section-text">
+                    <p>I focus on building a lean, highly effective toolkit tailored to network auditing, wireless exploitation, and custom automation.</p>
+                    
+                    <div class="grid" style="margin-top: 2rem;">
+                        <div class="card">
+                            <h3>Systems & Networks</h3>
+                            <ul>
+                                <li><strong>Primary OS:</strong> Kali Linux</li>
+                                <li><strong>Wireless Auditing:</strong> Aircrack-ng suite for capturing handshakes</li>
+                                <li><strong>Network Analysis:</strong> Wireshark, Nmap, Burp Suite</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Dev & Automation</h3>
+                            <ul>
+                                <li><strong>Scripting:</strong> Python (building automated recon tools & bots)</li>
+                                <li><strong>Libraries:</strong> apscheduler, requests, beautifulsoup</li>
+                                <li><strong>Web Exploitation:</strong> React, Next.js, Node.js (Identifying complex business logic flaws)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-image">
+                    <img src="img1.png" alt="Toolkit and Arsenal">
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Core Competencies</h2>
+            <p>A brief overview of my current technical foundation.</p>
+            
+            <div class="skills-container">
+                <div class="skill-tag">Red Teaming</div>
+                <div class="skill-tag">Wireless Network Auditing</div>
+                <div class="skill-tag">Vulnerability Assessment</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">JavaScript / TypeScript</div>
+                <div class="skill-tag">Node.js</div>
+                <div class="skill-tag">React / Next.js</div>
+                <div class="skill-tag">API Integration</div>
+                <div class="skill-tag">Linux / Bash</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 Bikat Tilahun. Designed for Offensive Security.</p>
+    </footer>
+
+</body>
+</html>
